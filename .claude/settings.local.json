@@ -6,7 +6,8 @@
       "Bash(rm -rf .next)",
       "Bash(npx --no-install next build)",
       "Bash(npx --no-install eslint src/app/music/page.tsx src/app/music/MusicPlayer.tsx)",
-      "Bash(Get-Content \"d:\\\\Project\\\\web-portofolio\\\\src\\\\app\\\\music\\\\page.tsx\")"
+      "Bash(Get-Content \"d:\\\\Project\\\\web-portofolio\\\\src\\\\app\\\\music\\\\page.tsx\")",
+      "WebFetch(domain:open.spotify.com)"
     ]
   }
 }

@@ -24,15 +24,15 @@ export type PlaylistData = {
   coverImage: string | null;
 };
 
-const AUDIO_SRC = "/assets/music/Harapan%2C%20Pt.%202.mp3";
-const SPOTIFY_URL = "https://open.spotify.com/track/2RlDBXGFu3hrQtbYDBSswk";
+const AUDIO_SRC = "/assets/music/Magnolia.mp3";
+const SPOTIFY_URL = "https://open.spotify.com/track/3JkDuxcnIzBUngCk6peKZi";
 
 const featured: Track = {
-  title: "Harapan, Pt 2",
-  artist: "The Cottons",
-  album: "Harapan",
-  year: "2024",
-  length: "5:31",
+  title: "Magnolia",
+  artist: "Magnolia Celebration",
+  album: "Fantasia",
+  year: "2022",
+  length: "4:16",
   cover: { from: "from-zinc-700", via: "via-zinc-900", to: "to-black" },
 };
 

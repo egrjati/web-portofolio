@@ -1,6 +1,6 @@
 import MusicPlayer, { type PlaylistData } from "./MusicPlayer";
 
-const FEATURED_TRACK_URL = "https://open.spotify.com/track/2RlDBXGFu3hrQtbYDBSswk";
+const FEATURED_TRACK_URL = "https://open.spotify.com/track/3JkDuxcnIzBUngCk6peKZi";
 
 type PlaylistDef = Omit<PlaylistData, "coverImage">;
 
@@ -14,7 +14,7 @@ const playlistDefs: PlaylistDef[] = [
     spotifyUrl: "https://open.spotify.com/playlist/25JhialaKULWOasScl6YmH",
   },
   {
-    name: "Anti Depresan",
+    name: "Depresan",
     desc: "Radiohead, The Verve, The Strokes, The Beatles, Blur, dst.",
     count: 81,
     tag: "Sick",

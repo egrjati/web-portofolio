@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Project = {
   id: string;
@@ -8,23 +8,134 @@ type Project = {
   tag: string;
   year: string;
   stack: string;
+  desc: string;
+  image?: string;
 };
 
 const projects: Project[] = [
-  { id: "01", title: "Smart Home Dashboard", tag: "Web Dev", year: "2025", stack: "Next.js · MQTT" },
-  { id: "02", title: "Hydroponics Monitor", tag: "IoT", year: "2024", stack: "ESP32 · Firebase" },
-  { id: "03", title: "Portfolio v3", tag: "Web Dev", year: "2024", stack: "Next.js · Tailwind" },
-  { id: "04", title: "Indoor Air Tracker", tag: "IoT", year: "2024", stack: "Arduino · LoRa" },
-  { id: "05", title: "Inventory System", tag: "Web Dev", year: "2023", stack: "Laravel · MySQL" },
-  { id: "06", title: "RFID Attendance", tag: "IoT", year: "2023", stack: "ESP8266 · Node-RED" },
+  {
+    id: "01",
+    title: "Holdme — Fashion E-Commerce",
+    tag: "Web Dev",
+    year: "2024",
+    stack: "Next.js 14 · Laravel 11 · PostgreSQL",
+    desc: "Platform e-commerce fashion brand Russ dengan pendekatan headless API — Laravel + Filament + Sanctum sebagai backend, Next.js + Tailwind sebagai frontend.",
+  },
+  {
+    id: "02",
+    title: "KotakPaket COD",
+    tag: "Web Dev",
+    year: "2024",
+    stack: "Next.js · TypeScript · Laravel",
+    desc: "Aplikasi manajemen pengiriman paket dengan sistem Cash on Delivery — frontend Next.js (TypeScript) terintegrasi REST API berbasis Laravel.",
+  },
+  {
+    id: "03",
+    title: "MejaMakan",
+    tag: "Web Dev",
+    year: "2024",
+    stack: "Next.js · Node.js · Prisma",
+    desc: "Aplikasi restoran berbasis monorepo — fullstack JavaScript menggabungkan client dan server dalam satu repository, dengan Prisma sebagai ORM database.",
+  },
+  {
+    id: "04",
+    title: "Cek Kandangku",
+    tag: "Web Dev",
+    year: "2024",
+    stack: "Mobile-First Web",
+    desc: "Website mobile-first untuk monitoring kondisi kandang ayam — antarmuka simpel, responsif, dan ringan untuk peternak.",
+    image: "/assets/project/cek-kandangku-mobile first website monitoring kandang ayam.jpg",
+  },
+  {
+    id: "05",
+    title: "Laying Hen Coop Ecosystem",
+    tag: "IoT",
+    year: "2023",
+    stack: "ESP32 · Sensors · Cloud",
+    desc: "Sistem IoT untuk mengelola ekosistem kandang ayam petelur — monitoring suhu, kelembaban, dan otomasi pakan secara real-time.",
+    image: "/assets/project/Project IoT_managing the ecosystem of the laying hen coop.png",
+  },
+  {
+    id: "06",
+    title: "Solar Panel Sun Follower",
+    tag: "IoT",
+    year: "2023",
+    stack: "Arduino · LDR · Servo",
+    desc: "Panel surya otomatis yang mengikuti arah matahari menggunakan sensor LDR dan servo untuk efisiensi energi maksimum.",
+    image: "/assets/project/Project IoT_Panel Surya sun Follower.png",
+  },
+  {
+    id: "07",
+    title: "Face Recognizer",
+    tag: "AI/ML",
+    year: "2023",
+    stack: "Python · OpenCV",
+    desc: "Aplikasi pengenalan wajah berbasis Python dengan library OpenCV — deteksi dan identifikasi wajah secara real-time melalui webcam.",
+    image: "/assets/project/project Python-OpenCV facerecognizer.png",
+  },
+  {
+    id: "08",
+    title: "Bikes Sales Analysis — Europe",
+    tag: "Data",
+    year: "2024",
+    stack: "Google Looker Studio",
+    desc: "Dashboard analitik penjualan sepeda di pasar Eropa — visualisasi tren penjualan, segmentasi konsumen, dan insight bisnis menggunakan Google Looker Studio.",
+    image: "/assets/project/Analysis google looker studio_Bikes Sales In Europe.png",
+  },
+  {
+    id: "09",
+    title: "Teman Baik — Company Profile",
+    tag: "Web Dev",
+    year: "2024",
+    stack: "Next.js · TypeScript · Laravel",
+    desc: "Website company profile Teman Baik — frontend Next.js (App Router, TypeScript) dengan backend Laravel sebagai content & service API. Deploy di Vercel.",
+  },
+  {
+    id: "10",
+    title: "Taman Zakat Indonesia",
+    tag: "Web Dev",
+    year: "2024",
+    stack: "Next.js · TypeScript · Docker",
+    desc: "Company profile lembaga zakat Taman Zakat Indonesia — dibangun dengan Next.js + TypeScript, didukung konfigurasi Docker untuk deployment.",
+  },
+  {
+    id: "11",
+    title: "Indonesia Bintang — Company Profile",
+    tag: "Web Dev",
+    year: "2024",
+    stack: "WordPress · HTML · PHP · JS",
+    desc: "Situs statis & dokumentasi plugin WordPress untuk Indonesia Bintang — termasuk plugin custom `ib-homepage-manager` dan strategi SEO konten.",
+  },
+  {
+    id: "12",
+    title: "Smart Trash Bin Monitoring",
+    tag: "IoT",
+    year: "2024",
+    stack: "IoT · Tailwind · JS",
+    desc: "Sistem IoT untuk monitoring kondisi tempat sampah secara real-time, dilengkapi dashboard web dan dukungan push notification sebagai alarm penuh.",
+  },
 ];
 
 const BG_GREEN = "#2A8559";
 
 export default function Project() {
   const [filter, setFilter] = useState<string>("ALL");
+  const [active, setActive] = useState<Project | null>(null);
   const categories = ["ALL", ...Array.from(new Set(projects.map((p) => p.tag.toUpperCase())))];
   const visible = filter === "ALL" ? projects : projects.filter((p) => p.tag.toUpperCase() === filter);
+
+  useEffect(() => {
+    if (!active) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setActive(null);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [active]);
 
   return (
     <div
@@ -90,50 +201,65 @@ export default function Project() {
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {visible.map((p) => (
-            <article
+            <button
               key={p.id}
-              className="group relative bg-white text-black border-2 border-black p-5 transition-all duration-200 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0_0_#000] cursor-pointer"
+              onClick={() => setActive(p)}
+              className="group relative text-left bg-white text-black border-2 border-black p-5 transition-all duration-200 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0_0_#000] cursor-pointer"
             >
-              <div className="flex items-start justify-between mb-6">
+              <div className="flex items-start justify-between mb-4">
                 <span className="font-mono text-[11px] tracking-widest text-black/50">
                   /{p.id}
                 </span>
-                <span className="font-mono text-lg leading-none transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1">
-                  ↗
+                <span className="font-mono text-[9px] tracking-widest px-2 py-0.5 border border-black/40 text-black/60">
+                  {p.tag.toUpperCase()}
                 </span>
               </div>
 
-              {/* Preview — schematic style */}
-              <div className="relative h-32 mb-5 border border-black/20 overflow-hidden bg-white">
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    backgroundImage: `
-                      linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px)
-                    `,
-                    backgroundSize: "10px 10px",
-                  }}
-                />
-                <div className="absolute inset-0 flex flex-col items-center justify-center font-mono text-[9px] tracking-widest text-black/60">
-                  <span>— {p.tag.toUpperCase()} —</span>
-                  <span className="mt-1 text-[8px]">FIG. {p.id} · {p.year}</span>
-                </div>
+              {/* Preview — image jika ada, fallback ke schematic */}
+              <div className="relative h-40 mb-4 border border-black/20 overflow-hidden bg-white">
+                {p.image ? (
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                ) : (
+                  <>
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        backgroundImage: `
+                          linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+                          linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px)
+                        `,
+                        backgroundSize: "10px 10px",
+                      }}
+                    />
+                    <div className="absolute inset-0 flex flex-col items-center justify-center font-mono text-[9px] tracking-widest text-black/60">
+                      <span>— {p.tag.toUpperCase()} —</span>
+                      <span className="mt-1 text-[8px]">FIG. {p.id} · {p.year}</span>
+                    </div>
+                  </>
+                )}
                 <span className="absolute top-1 left-1 w-2 h-2 border-t border-l border-black" />
                 <span className="absolute top-1 right-1 w-2 h-2 border-t border-r border-black" />
                 <span className="absolute bottom-1 left-1 w-2 h-2 border-b border-l border-black" />
                 <span className="absolute bottom-1 right-1 w-2 h-2 border-b border-r border-black" />
               </div>
 
-              <h3 className="text-lg font-bold leading-tight mb-2 uppercase tracking-tight">
+              <h3 className="text-base md:text-lg font-bold leading-tight mb-2 uppercase tracking-tight line-clamp-2 min-h-[2.5rem]">
                 {p.title}
               </h3>
 
-              <div className="flex items-center justify-between font-mono text-[10px] tracking-widest text-black/60 pt-3 border-t border-dashed border-black/30">
-                <span>{p.stack.toUpperCase()}</span>
-                <span>· {p.year}</span>
+              <p className="text-[11px] md:text-xs text-black/65 leading-relaxed line-clamp-3 mb-3 min-h-[3.3rem]">
+                {p.desc}
+              </p>
+
+              <div className="flex items-center justify-between font-mono text-[10px] tracking-widest text-black/60 pt-3 border-t border-dashed border-black/30 gap-2">
+                <span className="truncate">{p.stack.toUpperCase()}</span>
+                <span className="shrink-0">· {p.year}</span>
               </div>
-            </article>
+            </button>
           ))}
         </div>
 
@@ -141,6 +267,80 @@ export default function Project() {
           <span>END / OF / LOG</span>
           <span>— WEJ ©</span>
         </footer>
+      </div>
+
+      {active && <Modal project={active} onClose={() => setActive(null)} />}
+    </div>
+  );
+}
+
+function Modal({ project, onClose }: { project: Project; onClose: () => void }) {
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-black/80 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-4xl max-h-[90vh] bg-white text-black border-2 border-white flex flex-col overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between gap-4 px-5 py-3 border-b-2 border-black bg-white shrink-0">
+          <div className="flex items-center gap-3 min-w-0">
+            <span className="font-mono text-[11px] tracking-widest text-black/50 shrink-0">
+              /{project.id}
+            </span>
+            <h2 className="text-sm md:text-base font-bold uppercase tracking-tight truncate">
+              {project.title}
+            </h2>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="hidden sm:inline-block font-mono text-[10px] tracking-widest px-2 py-1 border-2 border-black">
+              {project.tag.toUpperCase()}
+            </span>
+            <button
+              onClick={onClose}
+              aria-label="Close"
+              className="w-8 h-8 flex items-center justify-center border-2 border-black hover:bg-black hover:text-white transition-colors font-mono"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+
+        {/* Body */}
+        <div className="flex-1 overflow-y-auto">
+          {project.image && (
+            <div className="relative w-full bg-black/5 border-b-2 border-black">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-auto max-h-[60vh] object-contain mx-auto"
+              />
+            </div>
+          )}
+          <div className="p-5 md:p-8">
+            <p className="text-sm md:text-base text-black/80 leading-relaxed">
+              {project.desc}
+            </p>
+            <div className="mt-5 pt-5 border-t border-dashed border-black/30 grid grid-cols-2 gap-4 font-mono text-[11px] tracking-widest">
+              <div>
+                <div className="text-black/40 mb-1">STACK</div>
+                <div className="font-bold">{project.stack.toUpperCase()}</div>
+              </div>
+              <div className="text-right">
+                <div className="text-black/40 mb-1">YEAR</div>
+                <div className="font-bold">{project.year}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="flex items-center justify-between px-5 py-2.5 border-t-2 border-black font-mono text-[10px] tracking-widest text-black/60 bg-white shrink-0">
+          <span>PROJECT · {project.id}</span>
+          <span>ESC · TO · CLOSE</span>
+        </div>
       </div>
     </div>
   );

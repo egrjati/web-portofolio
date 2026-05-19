@@ -30,7 +30,7 @@ export default function RootLayout({
     >
       <body className="flex flex-col-reverse md:flex-row md:h-screen md:overflow-hidden">
         <Aside />
-        <main className="flex-1 overflow-auto md:overflow-hidden md:h-full bg-white">{children}</main>
+        <main className="flex-1 overflow-auto md:overflow-hidden md:h-full bg-white pb-[4.25rem] md:pb-0">{children}</main>
       </body>
     </html>
   );

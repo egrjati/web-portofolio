@@ -15,7 +15,7 @@ export default function Aside() {
   const pathname = usePathname();
 
   return (
-    <aside className="shrink-0 bg-white border-t-2 md:border-t-0 md:border-r-2 border-black/20 w-full h-[4.25rem] md:w-24 md:h-screen md:sticky md:top-0 flex items-center justify-center">
+    <aside className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t-2 md:border-t-0 md:border-r-2 border-black/20 w-full h-[4.25rem] md:w-24 md:h-screen md:sticky md:top-0 flex items-center justify-center">
       <ul className="w-full">
         <li className="flex flex-row items-center justify-around md:flex-col md:justify-center w-full md:gap-5 px-2 md:px-0 md:py-6">
           {navItems.map(({ href, icon, label, exact }) => {

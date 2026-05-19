@@ -102,40 +102,29 @@ export default function MusicPlayer({
   const progress = duration ? (currentTime / duration) * 100 : 0;
 
   return (
-    <div className="relative min-h-[calc(100dvh-4rem)] md:h-full md:overflow-y-auto w-full text-black bg-white">
+    <div
+      className="relative min-h-[calc(100dvh-4rem)] md:h-full md:overflow-y-auto w-full text-black bg-white"
+      style={{
+        backgroundImage: `radial-gradient(rgba(0,0,0,0.18) 1px, transparent 1px)`,
+        backgroundSize: "22px 22px",
+      }}
+    >
       <audio ref={audioRef} src={AUDIO_SRC} preload="metadata" />
 
-      {/* Ambient background */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div
-          className="absolute -top-40 -left-20 h-[28rem] w-[28rem] rounded-full bg-gradient-to-br from-zinc-300 to-zinc-500 opacity-30 blur-3xl"
-          style={{ animation: "floatGlow 9s ease-in-out infinite" }}
-        />
-        <div
-          className="absolute top-1/3 -right-32 h-[26rem] w-[26rem] rounded-full bg-gradient-to-br from-zinc-400 to-zinc-700 opacity-20 blur-3xl"
-          style={{
-            animation: "floatGlow 11s ease-in-out infinite",
-            animationDelay: "-3s",
-          }}
-        />
-        <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 1px 1px, rgba(0,0,0,0.7) 1px, transparent 0)",
-            backgroundSize: "3px 3px",
-          }}
-        />
-      </div>
+      {/* Indie zine bunga collage */}
+      <BungaLayer />
+
+      {/* Corner brackets */}
+      <CornerFrame />
 
       {/* Top bar */}
-      <header className="sticky top-0 z-30 backdrop-blur-md bg-white/80 border-b-2 border-black/15 px-6 md:px-10 py-3 flex items-center justify-between">
+      <header className="relative z-20 sticky top-0 backdrop-blur-md bg-white/85 border-b-2 border-black px-6 md:px-10 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <span className="relative inline-flex h-2.5 w-2.5">
             <span className="absolute inset-0 rounded-full bg-black animate-ping opacity-60" />
             <span className="relative inline-block h-2.5 w-2.5 rounded-full bg-black" />
           </span>
-          <span className="text-[10px] md:text-xs uppercase tracking-[0.25em] text-black/70">
+          <span className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.3em] text-black">
             Live · Enggar FM
           </span>
         </div>
@@ -143,40 +132,51 @@ export default function MusicPlayer({
           href={SPOTIFY_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[10px] md:text-xs uppercase tracking-widest text-black hover:text-black/60 transition"
+          className="font-mono text-[10px] md:text-[11px] uppercase tracking-widest text-black hover:opacity-60 transition"
         >
-          Open in Spotify ↗
+          Spotify ↗
         </a>
       </header>
 
-      <div className="relative">
+      <div className="relative z-10 px-6 md:px-12 pt-10 md:pt-12 pb-2 max-w-6xl mx-auto">
+        {/* INDEX line */}
+        <div className="flex items-center gap-3 mb-4 font-mono text-[11px] tracking-[0.3em] text-black/60">
+          <span className="inline-block w-2 h-2 bg-black" />
+          <span>INDEX / 003</span>
+          <span className="flex-1 h-px bg-black/20" />
+          <span>SIDE · A</span>
+        </div>
+
         {/* Hero */}
-        <section className="px-6 md:px-10 pt-10 md:pt-14">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.05]">
-            songs not meant for{" "}
-            <span className="bg-gradient-to-r from-black via-zinc-500 to-black bg-clip-text text-transparent italic">
-              everyone.
+        <section>
+          <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] uppercase">
+            Sound<span className="italic font-light">track</span>
+            <span className="inline-block align-top ml-2 text-2xl md:text-3xl font-mono font-normal text-black/40">
+              ✦
             </span>
           </h1>
-          <p className="mt-5 max-w-2xl text-black/60 leading-relaxed">
-            Sebuah ruang kecil di portofolio ini, tempat deadline berhenti
-            berteriak dan headphone yang bicara. Geser ke bawah untuk dengar apa
-            yang sedang berputar — semua kurasi pribadi, semua diuji pada sesi
-            debugging dini hari.
+          <p className="mt-5 max-w-xl text-sm md:text-base text-black/60 leading-relaxed">
+            Suara latar untuk yang sedang dikerjakan. Indie lokal & luar negeri —
+            dari Cottons sampai Radiohead — diuji pada sesi debug dini hari,
+            dirangkai jadi mixtape pribadi.
           </p>
         </section>
 
         {/* Featured Now Playing */}
-        <section className="px-6 md:px-10 mt-10">
-          <div className="relative overflow-hidden rounded-3xl border-2 border-black/15 bg-zinc-50 p-5 md:p-8">
-            <div className="pointer-events-none absolute -inset-32 bg-gradient-to-tr from-zinc-200 to-zinc-400 opacity-30 blur-3xl" />
+        <section className="mt-10 md:mt-14">
+          <div className="font-mono text-[11px] tracking-[0.3em] text-black/60 mb-3">
+            // NOW PLAYING — TRACK 01
+          </div>
+          <article className="relative bg-white border-2 border-black p-5 md:p-8 shadow-[8px_8px_0_0_#000]">
+            {/* Tape reel decoration top-right */}
+            <CassetteIcon className="hidden md:block absolute -top-6 -right-6 w-24 text-black bg-white" />
 
             <div className="relative flex flex-col md:flex-row gap-6 md:gap-10 items-stretch">
               {/* Cover + vinyl */}
               <div className="relative shrink-0 mx-auto md:mx-0">
                 <button
                   onClick={togglePlay}
-                  className="relative aspect-square w-56 md:w-64 rounded-2xl overflow-hidden shadow-2xl shadow-black/40 ring-1 ring-black/20 block focus:outline-none"
+                  className="relative aspect-square w-56 md:w-64 overflow-hidden border-2 border-black block focus:outline-none"
                   aria-label={isPlaying ? "Pause" : "Play"}
                 >
                   {featuredCoverImage ? (
@@ -189,124 +189,143 @@ export default function MusicPlayer({
                       priority
                     />
                   ) : (
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-br ${featured.cover.from} ${featured.cover.via ?? ""} ${featured.cover.to}`}
-                    />
+                    <CoverFallback label={featured.album} />
                   )}
-                  <div className="absolute inset-0 mix-blend-overlay bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.3),transparent_55%)]" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                  <div className="absolute top-3 left-3 text-[10px] uppercase tracking-[0.3em] text-white/80">
+                  {/* corner ticks */}
+                  <span className="absolute top-1.5 left-1.5 w-3 h-3 border-t-2 border-l-2 border-white mix-blend-difference" />
+                  <span className="absolute top-1.5 right-1.5 w-3 h-3 border-t-2 border-r-2 border-white mix-blend-difference" />
+                  <span className="absolute bottom-1.5 left-1.5 w-3 h-3 border-b-2 border-l-2 border-white mix-blend-difference" />
+                  <span className="absolute bottom-1.5 right-1.5 w-3 h-3 border-b-2 border-r-2 border-white mix-blend-difference" />
+                  <div className="absolute top-2 left-2 font-mono text-[10px] uppercase tracking-[0.3em] text-white mix-blend-difference">
                     side a
                   </div>
-                  <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
-                    <div className="font-bold text-white text-base leading-tight drop-shadow">
-                      {featured.album}
-                    </div>
+                  <div className="absolute bottom-2 right-2 mix-blend-difference">
                     {isPlaying && <Equalizer tone="light" />}
                   </div>
                 </button>
 
-                {/* Vinyl peeking */}
+                {/* Vinyl peeking — pure black with white rings (no gradient) */}
                 <div
-                  className="absolute top-4 -right-12 hidden md:grid h-56 w-56 rounded-full place-items-center bg-gradient-to-br from-zinc-800 via-black to-zinc-900 shadow-2xl shadow-black/50 ring-1 ring-black/20"
+                  className="absolute top-4 -right-12 hidden md:grid h-56 w-56 rounded-full place-items-center bg-black border-2 border-black"
                   style={{
                     animation: isPlaying
                       ? "vinylSpin 14s linear infinite"
                       : undefined,
                   }}
                 >
-                  <div className="h-32 w-32 rounded-full border border-white/5" />
-                  <div className="absolute h-20 w-20 rounded-full border border-white/5" />
-                  <div
-                    className={`absolute h-14 w-14 rounded-full bg-gradient-to-br ${featured.cover.from} ${featured.cover.to} ring-1 ring-white/20 overflow-hidden`}
-                  >
+                  <div className="absolute h-52 w-52 rounded-full border border-white/15" />
+                  <div className="absolute h-44 w-44 rounded-full border border-white/10" />
+                  <div className="absolute h-36 w-36 rounded-full border border-white/15" />
+                  <div className="absolute h-28 w-28 rounded-full border border-white/10" />
+                  <div className="absolute h-20 w-20 rounded-full border border-white/15" />
+                  <div className="relative h-14 w-14 rounded-full bg-white overflow-hidden border-2 border-black">
                     {featuredCoverImage && (
                       <Image
                         src={featuredCoverImage}
                         alt=""
                         fill
-                        className="object-cover opacity-70"
+                        className="object-cover"
                         sizes="56px"
                       />
                     )}
                   </div>
-                  <div className="absolute h-2 w-2 rounded-full bg-white" />
+                  <div className="absolute h-1.5 w-1.5 rounded-full bg-black z-10" />
                 </div>
               </div>
 
               {/* Info + audio player */}
               <div className="relative flex-1 flex flex-col md:pl-32">
-                <div className="text-[10px] uppercase tracking-[0.35em] text-black/50">
+                <div className="font-mono text-[10px] uppercase tracking-[0.35em] text-black/50">
                   Featured Listen · #01
                 </div>
-                <h2 className="mt-2 text-3xl md:text-5xl font-bold leading-tight">
+                <h2 className="mt-2 text-3xl md:text-5xl font-bold leading-tight tracking-tight">
                   {featured.title}
                 </h2>
-                <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-black/70">
-                  <span className="font-semibold text-black">
+                <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-black/70 font-mono text-xs tracking-wider">
+                  <span className="font-semibold text-black uppercase">
                     {featured.artist}
                   </span>
                   <span className="text-black/30">·</span>
-                  <span>{featured.album}</span>
+                  <span className="uppercase">{featured.album}</span>
                   <span className="text-black/30">·</span>
                   <span>{featured.year}</span>
                 </div>
 
-                {/* Custom audio player */}
+                {/* Audio player */}
                 <div className="mt-6 flex flex-col gap-3">
-                  {/* Progress bar */}
                   <div
-                    className="relative h-1.5 w-full rounded-full bg-black/10 cursor-pointer group"
+                    className="relative h-1 w-full bg-black/10 cursor-pointer group"
                     onClick={seek}
                   >
                     <div
-                      className="absolute inset-y-0 left-0 rounded-full bg-black transition-all"
+                      className="absolute inset-y-0 left-0 bg-black"
                       style={{ width: `${progress}%` }}
                     />
                     <div
-                      className="absolute top-1/2 -translate-y-1/2 h-3.5 w-3.5 rounded-full bg-black opacity-0 group-hover:opacity-100 transition -ml-1.5"
+                      className="absolute top-1/2 -translate-y-1/2 h-3 w-3 bg-black opacity-0 group-hover:opacity-100 transition -ml-1.5"
                       style={{ left: `${progress}%` }}
                     />
                   </div>
 
-                  {/* Time */}
-                  <div className="flex justify-between text-[11px] tabular-nums text-black/40">
+                  <div className="flex justify-between font-mono text-[10px] tabular-nums text-black/50 tracking-widest">
                     <span>{fmt(currentTime)}</span>
-                    <span>{fmt(duration)}</span>
+                    <span>− {fmt(Math.max(0, duration - currentTime))}</span>
                   </div>
 
-                  {/* Controls */}
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 mt-1">
                     <button
                       onClick={togglePlay}
-                      className="h-12 w-12 rounded-full bg-black text-white grid place-items-center hover:bg-zinc-800 active:scale-95 transition shadow-md shadow-black/30"
+                      className="h-12 w-12 bg-black text-white grid place-items-center hover:bg-white hover:text-black border-2 border-black active:scale-95 transition"
                       aria-label={isPlaying ? "Pause" : "Play"}
                     >
                       {isPlaying ? <PauseIcon /> : <PlayIcon />}
                     </button>
                     <button
                       onClick={stop}
-                      className="h-10 w-10 rounded-full bg-white text-black border-2 border-black grid place-items-center hover:bg-black hover:text-white active:scale-95 transition"
+                      className="h-10 w-10 bg-white text-black border-2 border-black grid place-items-center hover:bg-black hover:text-white active:scale-95 transition"
                       aria-label="Stop"
                     >
                       <StopIcon />
                     </button>
+                    <span className="ml-auto font-mono text-[10px] tracking-widest text-black/40">
+                      [ 320 KBPS ]
+                    </span>
                   </div>
                 </div>
 
-                <div className="mt-6 hidden md:block text-sm text-black/50 italic border-l-2 border-black/30 pl-4">
-                  &ldquo;musik bukan hiburan — ia ritus harian agar kode tetap
-                  waras.&rdquo;
+                <div className="mt-6 hidden md:block text-sm text-black/60 italic border-l-2 border-black pl-4 font-light">
+                  &ldquo;musik bukan hiburan — ia ritus harian agar kode tetap waras.&rdquo;
                 </div>
               </div>
             </div>
-          </div>
+          </article>
         </section>
 
+        {/* Soundwave divider */}
+        <div className="mt-14 mb-10 flex items-center gap-4">
+          <span className="font-mono text-[11px] tracking-[0.3em] text-black/60 shrink-0">
+            // SIGNAL
+          </span>
+          <SoundWave className="flex-1 h-6 text-black" />
+        </div>
+
         {/* Top mixes */}
-        <section className="px-6 md:px-10 mt-14 mb-5">
-          <SectionHeading kicker="Made for you" title="Mix kesayangan" />
-          <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
+        <section>
+          <div className="flex items-end justify-between mb-6">
+            <div>
+              <div className="font-mono text-[10px] uppercase tracking-[0.35em] text-black/60">
+                MIX / 02 — KURASI
+              </div>
+              <h3 className="mt-1 text-2xl md:text-4xl font-black tracking-tight uppercase">
+                Mix Kesayangan
+              </h3>
+            </div>
+            <span className="hidden md:block font-mono text-[10px] uppercase tracking-[0.3em] text-black/40">
+              {String(playlists.length).padStart(2, "0")} ITEMS
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             {playlists.map((p) => (
               <PlaylistCard
                 key={p.name}
@@ -325,23 +344,27 @@ export default function MusicPlayer({
             ))}
           </div>
         </section>
+
+        {/* Footer */}
+        <footer className="mt-16 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-black/40">
+          <span>END / OF / SIDE A</span>
+          <span>— WEJ ©</span>
+        </footer>
       </div>
 
       {/* Sticky mini player */}
       <div className="sticky bottom-0 left-0 right-0 z-30 bg-white text-black border-t-2 border-black">
         <div
-          className="relative h-0.75 w-full border-b border-black/15 cursor-pointer"
+          className="relative h-1 w-full border-b border-black/15 cursor-pointer"
           onClick={seek}
         >
           <div
-            className="absolute inset-y-0 left-0 bg-black transition-all"
+            className="absolute inset-y-0 left-0 bg-black"
             style={{ width: `${progress}%` }}
           />
         </div>
         <div className="px-3 md:px-10 py-3 flex items-center gap-3 md:gap-5">
-          <div
-            className={`h-11 w-11 md:h-12 md:w-12 rounded-md shrink-0 bg-gradient-to-br ${current.cover.from} ${current.cover.to} border border-black shadow-[2px_2px_0_0_rgba(0,0,0,1)] overflow-hidden relative`}
-          >
+          <div className="h-11 w-11 md:h-12 md:w-12 shrink-0 bg-white border-2 border-black overflow-hidden relative shadow-[3px_3px_0_0_#000]">
             {current.title === featured.title && featuredCoverImage ? (
               <Image
                 src={featuredCoverImage}
@@ -350,22 +373,26 @@ export default function MusicPlayer({
                 className="object-cover"
                 sizes="48px"
               />
-            ) : null}
+            ) : (
+              <div className="absolute inset-0 grid place-items-center font-mono text-[8px] text-black/50">
+                ♪
+              </div>
+            )}
           </div>
           <div className="min-w-0 flex-1">
-            <div className="truncate text-sm font-semibold">
+            <div className="truncate text-sm font-bold uppercase tracking-tight">
               {current.title}
             </div>
-            <div className="truncate text-[11px] text-black/60">
+            <div className="truncate font-mono text-[10px] tracking-wider text-black/60">
               {current.artist} · {current.album}
             </div>
           </div>
-          <span className="hidden md:inline-block text-[10px] uppercase tracking-[0.3em] text-black/40 tabular-nums border border-black/20 rounded px-2 py-1">
+          <span className="hidden md:inline-block font-mono text-[10px] uppercase tracking-[0.3em] text-black/50 tabular-nums border-2 border-black px-2 py-1">
             {fmt(currentTime)} / {fmt(duration || 0)}
           </span>
           <button
             onClick={() => setLiked((l) => !l)}
-            className={`hidden md:grid h-10 w-10 place-items-center rounded-full border-2 border-black transition ${
+            className={`hidden md:grid h-10 w-10 place-items-center border-2 border-black transition ${
               liked ? "bg-black text-white" : "bg-white text-black hover:bg-black/5"
             }`}
             aria-label="Like"
@@ -374,7 +401,7 @@ export default function MusicPlayer({
           </button>
           <button
             onClick={togglePlay}
-            className="h-10 w-10 rounded-full bg-white text-black border-2 border-black grid place-items-center hover:bg-black hover:text-white active:scale-95 transition"
+            className="h-10 w-10 bg-white text-black border-2 border-black grid place-items-center hover:bg-black hover:text-white active:scale-95 transition"
             aria-label={isPlaying ? "Pause" : "Play"}
           >
             {isPlaying ? <PauseIcon small /> : <PlayIcon small />}
@@ -385,22 +412,77 @@ export default function MusicPlayer({
   );
 }
 
+/* ---------- Layout primitives ---------- */
+
+function CornerFrame() {
+  return (
+    <>
+      <span className="pointer-events-none fixed md:absolute top-16 left-4 md:top-20 md:left-6 w-5 h-5 border-t-2 border-l-2 border-black z-10" />
+      <span className="pointer-events-none fixed md:absolute top-16 right-4 md:top-20 md:right-6 w-5 h-5 border-t-2 border-r-2 border-black z-10" />
+      <span className="pointer-events-none fixed md:absolute bottom-32 left-4 md:bottom-24 md:left-6 w-5 h-5 border-b-2 border-l-2 border-black z-10" />
+      <span className="pointer-events-none fixed md:absolute bottom-32 right-4 md:bottom-24 md:right-6 w-5 h-5 border-b-2 border-r-2 border-black z-10" />
+    </>
+  );
+}
+
+/* Bunga.svg scattered like indie zine collage, grayscaled to fit B/W theme */
+function BungaLayer() {
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden select-none">
+      <img
+        src="/assets/images/bunga.svg"
+        alt=""
+        className="absolute -top-10 -right-12 w-56 md:w-72 grayscale opacity-30 -rotate-12"
+      />
+      <img
+        src="/assets/images/bunga.svg"
+        alt=""
+        className="absolute top-1/3 -left-16 w-40 md:w-56 grayscale opacity-25 rotate-45"
+      />
+      <img
+        src="/assets/images/bunga.svg"
+        alt=""
+        className="absolute bottom-32 right-1/4 w-28 md:w-40 grayscale opacity-20 rotate-12"
+      />
+      <img
+        src="/assets/images/bunga.svg"
+        alt=""
+        className="hidden md:block absolute top-2/3 right-4 w-24 grayscale opacity-25 -rotate-45"
+      />
+
+      {/* Mono labels */}
+      <span className="hidden md:block absolute top-24 right-32 font-mono text-[10px] tracking-[0.3em] text-black/40 -rotate-12">
+        ★ INDIE / FM
+      </span>
+      <span className="hidden md:block absolute bottom-44 left-24 font-mono text-[10px] tracking-[0.3em] text-black/40">
+        MIXTAPE · 03
+      </span>
+    </div>
+  );
+}
+
 /* ---------- Sub components ---------- */
 
-function SectionHeading({ kicker, title }: { kicker: string; title: string }) {
+function CoverFallback({ label }: { label: string }) {
   return (
-    <div className="flex items-end justify-between">
-      <div>
-        <div className="text-[10px] uppercase tracking-[0.35em] text-black/50">
-          {kicker}
-        </div>
-        <h3 className="mt-1 text-2xl md:text-3xl font-bold tracking-tight">
-          {title}
-        </h3>
+    <div className="absolute inset-0 bg-white">
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `repeating-linear-gradient(
+            45deg,
+            transparent 0px,
+            transparent 6px,
+            rgba(0,0,0,0.9) 6px,
+            rgba(0,0,0,0.9) 7px
+          )`,
+        }}
+      />
+      <div className="absolute inset-0 grid place-items-center">
+        <span className="bg-white border-2 border-black px-3 py-1 font-mono text-[10px] uppercase tracking-widest">
+          {label}
+        </span>
       </div>
-      <button className="text-[10px] md:text-xs uppercase tracking-[0.25em] text-black/40 hover:text-black transition">
-        Lihat semua
-      </button>
     </div>
   );
 }
@@ -412,16 +494,17 @@ function PlaylistCard({
   playlist: PlaylistData;
   onPlay: () => void;
 }) {
-  const { name, desc, count, cover, tag, spotifyUrl, coverImage } = playlist;
+  const { name, desc, count, tag, spotifyUrl, coverImage } = playlist;
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl border-2 border-black/10 bg-white hover:bg-zinc-50 transition p-3 md:p-4">
-      <div
-        className={`relative aspect-square w-full rounded-xl overflow-hidden shadow-lg shadow-black/30 ring-1 ring-black/15 ${
-          coverImage ? "" : `bg-gradient-to-br ${cover.from} ${cover.via ?? ""} ${cover.to}`
-        }`}
-      >
-        {coverImage && (
+    <div className="group relative bg-white border-2 border-black p-4 transition-all duration-200 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0_0_#000]">
+      <div className="flex items-center justify-between mb-3 font-mono text-[10px] tracking-widest text-black/60">
+        <span>[ {tag.toUpperCase()} ]</span>
+        <span className="tabular-nums">{String(count).padStart(2, "0")} TRK</span>
+      </div>
+
+      <div className="relative aspect-square w-full overflow-hidden border-2 border-black">
+        {coverImage ? (
           <Image
             src={coverImage}
             alt={name}
@@ -429,22 +512,22 @@ function PlaylistCard({
             className="object-cover"
             sizes="(max-width: 768px) 50vw, 33vw"
           />
+        ) : (
+          <CoverFallback label={name} />
         )}
-        <div className="absolute inset-0 mix-blend-overlay bg-[radial-gradient(circle_at_25%_15%,rgba(255,255,255,0.4),transparent_55%)]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-        <div className="absolute top-3 left-3 text-[10px] uppercase tracking-[0.25em] text-white/90 font-medium">
-          {tag}
-        </div>
-        <div className="absolute bottom-3 left-3 right-14 text-xl md:text-2xl font-extrabold leading-tight text-white drop-shadow">
-          {name}
-        </div>
+        {/* corner ticks */}
+        <span className="absolute top-1.5 left-1.5 w-3 h-3 border-t-2 border-l-2 border-white mix-blend-difference" />
+        <span className="absolute top-1.5 right-1.5 w-3 h-3 border-t-2 border-r-2 border-white mix-blend-difference" />
+        <span className="absolute bottom-1.5 left-1.5 w-3 h-3 border-b-2 border-l-2 border-white mix-blend-difference" />
+        <span className="absolute bottom-1.5 right-1.5 w-3 h-3 border-b-2 border-r-2 border-white mix-blend-difference" />
+
         {spotifyUrl ? (
           <a
             href={spotifyUrl}
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => { e.stopPropagation(); onPlay(); }}
-            className="absolute right-3 bottom-3 h-11 w-11 rounded-full bg-white text-black grid place-items-center translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition shadow-lg shadow-black/40 hover:scale-110 ring-1 ring-black/10"
+            className="absolute right-3 bottom-3 h-11 w-11 bg-white text-black grid place-items-center border-2 border-black translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition hover:bg-black hover:text-white shadow-[3px_3px_0_0_#000]"
             aria-label={`Open ${name} on Spotify`}
           >
             <SpotifyIcon />
@@ -452,19 +535,17 @@ function PlaylistCard({
         ) : (
           <button
             onClick={(e) => { e.stopPropagation(); onPlay(); }}
-            className="absolute right-3 bottom-3 h-11 w-11 rounded-full bg-white text-black grid place-items-center translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition shadow-lg shadow-black/40 hover:scale-110 ring-1 ring-black/10"
+            className="absolute right-3 bottom-3 h-11 w-11 bg-white text-black grid place-items-center border-2 border-black translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition hover:bg-black hover:text-white shadow-[3px_3px_0_0_#000]"
             aria-label={`Play ${name}`}
           >
             <PlayIcon small />
           </button>
         )}
       </div>
+
       <div className="mt-3">
-        <div className="flex items-center justify-between gap-2">
-          <div className="font-semibold truncate text-black">{name}</div>
-          <div className="text-[10px] text-black/40 tabular-nums shrink-0">
-            {count} lagu
-          </div>
+        <div className="font-bold uppercase tracking-tight truncate text-black text-base">
+          {name}
         </div>
         <div className="text-[11px] md:text-xs text-black/60 line-clamp-2 mt-1 min-h-[2.25rem]">
           {desc}
@@ -474,10 +555,10 @@ function PlaylistCard({
             href={spotifyUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 mt-2 text-[10px] uppercase tracking-widest text-black/50 hover:text-black transition"
+            className="inline-flex items-center gap-1.5 mt-2 font-mono text-[10px] uppercase tracking-widest text-black/60 hover:text-black transition pt-2 border-t border-dashed border-black/30 w-full"
           >
             <SpotifyIcon size={12} />
-            Buka di Spotify
+            Buka di Spotify ↗
           </a>
         )}
       </div>
@@ -497,11 +578,54 @@ function Equalizer({
   const bar = tone === "light" ? "bg-white" : "bg-black";
   return (
     <div className={`flex items-end gap-[3px] ${h}`} aria-hidden="true">
-      <span className={`${w} ${bar} rounded-full origin-bottom h-full`} style={{ animation: "eqBar 0.9s ease-in-out infinite" }} />
-      <span className={`${w} ${bar} rounded-full origin-bottom h-full`} style={{ animation: "eqBar 0.7s ease-in-out infinite", animationDelay: "-0.2s" }} />
-      <span className={`${w} ${bar} rounded-full origin-bottom h-full`} style={{ animation: "eqBar 1.1s ease-in-out infinite", animationDelay: "-0.4s" }} />
-      <span className={`${w} ${bar} rounded-full origin-bottom h-full`} style={{ animation: "eqBar 0.8s ease-in-out infinite", animationDelay: "-0.6s" }} />
+      <span className={`${w} ${bar} origin-bottom h-full`} style={{ animation: "eqBar 0.9s ease-in-out infinite" }} />
+      <span className={`${w} ${bar} origin-bottom h-full`} style={{ animation: "eqBar 0.7s ease-in-out infinite", animationDelay: "-0.2s" }} />
+      <span className={`${w} ${bar} origin-bottom h-full`} style={{ animation: "eqBar 1.1s ease-in-out infinite", animationDelay: "-0.4s" }} />
+      <span className={`${w} ${bar} origin-bottom h-full`} style={{ animation: "eqBar 0.8s ease-in-out infinite", animationDelay: "-0.6s" }} />
     </div>
+  );
+}
+
+/* ---------- Decorative SVG ---------- */
+
+function CassetteIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 120 80" fill="none" stroke="currentColor" strokeWidth="1.5" className={className}>
+      <rect x="2" y="2" width="116" height="76" />
+      <rect x="14" y="18" width="92" height="34" />
+      <line x1="14" y1="30" x2="106" y2="30" />
+      <circle cx="36" cy="40" r="8" />
+      <circle cx="36" cy="40" r="2" fill="currentColor" />
+      <circle cx="84" cy="40" r="8" />
+      <circle cx="84" cy="40" r="2" fill="currentColor" />
+      <line x1="44" y1="40" x2="76" y2="40" />
+      <rect x="20" y="60" width="80" height="12" />
+      <text x="30" y="69" fill="currentColor" stroke="none" fontFamily="monospace" fontSize="6">
+        MIXTAPE · WEJ
+      </text>
+    </svg>
+  );
+}
+
+function SoundWave({ className }: { className?: string }) {
+  const heights = [
+    8, 14, 6, 18, 10, 22, 12, 16, 9, 24, 11, 17, 7, 20, 13, 15,
+    19, 8, 21, 10, 14, 23, 12, 6, 18, 9, 16, 11, 25, 13, 8, 17,
+    10, 22, 14, 7, 19, 12, 21, 9, 15, 11, 18, 6, 24, 13, 8, 16,
+  ];
+  return (
+    <svg viewBox={`0 0 ${heights.length * 4} 30`} preserveAspectRatio="none" className={className}>
+      {heights.map((h, i) => (
+        <rect
+          key={i}
+          x={i * 4}
+          y={(30 - h) / 2}
+          width="2"
+          height={h}
+          fill="currentColor"
+        />
+      ))}
+    </svg>
   );
 }
 
